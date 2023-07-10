@@ -15,15 +15,9 @@ public class AccountProfileService {
         
     }
 
-    public List<AccountProfile> getAllProfiles() {
-        return accountProfileRepository.findAll();
-    }
 
     public void createProfile(AccountProfile accountProfile) {
         accountProfileRepository.save(accountProfile);
-    }
-    public void createProfiles(List<AccountProfile> accountProfiles) {
-        accountProfileRepository.saveAll(accountProfiles);
     }
 
     public AccountProfile getProfileByNameAndSurname(String name, String surname) {
