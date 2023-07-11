@@ -9,33 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.eviro.assessment.grad001.sihlendlovu.enviroassessment.contracts.FileParser;
 import com.eviro.assessment.grad001.sihlendlovu.enviroassessment.services.AccountProfileService;
-
-import jakarta.annotation.PostConstruct;
 
 
 @RestController
 @RequestMapping("/v1/api/image")
 public class ImageController {
 
-    private final FileParser fileParser;
-    private final AccountProfileService accountProfileService;
-
-    public ImageController(FileParser fileParser, AccountProfileService accountProfileService) {
-        this.fileParser = fileParser;
+    private final AccountProfileService accountProfileService; // inject account profile service
+    public ImageController(AccountProfileService accountProfileService) {
         this.accountProfileService = accountProfileService;
-    }
-
-    @PostConstruct
-    private void parseFile() { //parse file on startup
-        try {
-            var currentDirectory = System.getProperty("user.dir"); //get current directory
-            var filePath = "/"+ currentDirectory + "/wwwroot/1672815113084-GraduateDev_AssessmentCsv_Ref003.csv";
-            fileParser.parseCSV(new File(filePath));
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
     }
 
     @GetMapping("/{name}/{surname}")
